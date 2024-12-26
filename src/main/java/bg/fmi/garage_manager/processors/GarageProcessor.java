@@ -1,10 +1,13 @@
 package bg.fmi.garage_manager.processors;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import bg.fmi.garage_manager.data.dao.GarageRepository;
 import bg.fmi.garage_manager.data.model.GarageEntity;
-import bg.fmi.garage_manager.data.requests.CreateGarageRequest;
+import bg.fmi.garage_manager.data.requests.GarageRequest;
 import bg.fmi.garage_manager.data.responses.GarageResponse;
 import jakarta.transaction.Transactional;
 
@@ -18,7 +21,7 @@ public class GarageProcessor {
         this.garageRepository = garageRepository;
         }
 
-    public GarageResponse createGarage(CreateGarageRequest request) {
+    public GarageResponse createGarage(GarageRequest request) {
         GarageEntity newGarage = new GarageEntity();
         newGarage.setName(request.getName());
         newGarage.setLocation(request.getLocation());
@@ -35,5 +38,87 @@ public class GarageProcessor {
             savedGarage.getCity(), 
             savedGarage.getCapacity()
             );
+    }
+
+    public List<GarageResponse> getAllGarages() {
+        List<GarageEntity> activeGarages = garageRepository.findByIsActiveTrue();
+        return activeGarages.stream()
+            .map(garage -> new GarageResponse(
+                garage.getId(),
+                garage.getName(),
+                garage.getLocation(),
+                garage.getCity(),
+                garage.getCapacity()
+            ))
+            .collect(Collectors.toList());
+    }
+
+
+    public List<GarageResponse> getGaragesByCity(String city) {
+        List<GarageEntity> activeGarages = garageRepository.findByCityAndIsActiveTrue(city);
+        return activeGarages.stream()
+            .map(garage -> new GarageResponse(
+                garage.getId(),
+                garage.getName(),
+                garage.getLocation(),
+                garage.getCity(),
+                garage.getCapacity()
+            ))
+            .collect(Collectors.toList());
+    }
+
+    public GarageResponse getGarageById(Long id) {
+        GarageEntity garage = garageRepository.findByIdAndIsActiveTrue(id).orElse(null);
+        if (garage == null) {
+            return null;
+        }
+        return new GarageResponse(
+            garage.getId(),
+            garage.getName(),
+            garage.getLocation(),
+            garage.getCity(),
+            garage.getCapacity()
+        );
+    }
+
+    public GarageResponse updateGarage(Long id, GarageRequest request) {
+        GarageEntity garage = garageRepository.findByIdAndIsActiveTrue(id).orElse(null);
+        if (garage == null) {
+            return null;
+        }
+
+        garage.setName(request.getName());
+        garage.setLocation(request.getLocation());
+        garage.setCity(request.getCity());
+        garage.setCapacity(request.getCapacity());
+
+        GarageEntity updatedGarage = garageRepository.save(garage);
+
+        return new GarageResponse(
+            updatedGarage.getId(),
+            updatedGarage.getName(),
+            updatedGarage.getLocation(),
+            updatedGarage.getCity(),
+            updatedGarage.getCapacity()
+        );
+    }
+
+    public GarageResponse deleteGarage(Long id) {
+        GarageEntity garage = garageRepository.findByIdAndIsActiveTrue(id).orElse(null);
+        if (garage == null) {
+            return null;
+        }
+
+        garage.setIsActive(false);
+        
+        GarageEntity deletedGarage = garageRepository.save(garage);
+
+        return new GarageResponse(
+            deletedGarage.getId(),
+            deletedGarage.getName(),
+            deletedGarage.getLocation(),
+            deletedGarage.getCity(),
+            deletedGarage.getCapacity()
+        );
     }
 }

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class CreateGarageRequest {
+public class GarageRequest {
 
     @NotBlank(message = "Name is mandatory")
     @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters")
@@ -18,10 +18,10 @@ public class CreateGarageRequest {
     @Min(value = 1, message = "Capacity must be greater than 0")
     private Integer capacity;
 
-    public CreateGarageRequest() {
+    public GarageRequest() {
     }
 
-    public CreateGarageRequest(String name, String location, String city, Integer capacity) {
+    public GarageRequest(String name, String location, String city, Integer capacity) {
         this.name = name;
         this.location = location;
         this.city = city;

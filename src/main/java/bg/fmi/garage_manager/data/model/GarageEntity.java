@@ -45,19 +45,19 @@ public class GarageEntity implements Serializable {
         this.id = id;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return created_at;
     }
 
-    public void setCreatedAt(Timestamp created_at) {
+    public void setCreatedAt(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updated_at;
     }
 
-    public void setUpdatedAt(Timestamp updated_at) {
+    public void setUpdatedAt(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
 
