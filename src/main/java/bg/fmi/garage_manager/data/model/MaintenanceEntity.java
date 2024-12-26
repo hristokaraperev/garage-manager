@@ -9,11 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "maintenences")
-public class MaintenenceEntity implements Serializable {
+@Table(name = "maintenances")
+public class MaintenanceEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="maintenence_entity_sequence")
-    @SequenceGenerator(name="maintenence_entity_sequence", sequenceName="maintenence_entity_sequence", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="maintenance_entity_sequence")
+    @SequenceGenerator(name="maintenance_entity_sequence", sequenceName="maintenance_entity_sequence", allocationSize=1)
     private Long id;
     
     @CreationTimestamp

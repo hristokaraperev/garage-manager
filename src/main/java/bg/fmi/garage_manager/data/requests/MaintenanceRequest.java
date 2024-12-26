@@ -6,7 +6,7 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class MaintenenceRequest {
+public class MaintenanceRequest {
 
     private Long garageId;
     private Long carId;
@@ -16,10 +16,10 @@ public class MaintenenceRequest {
     @FutureOrPresent(message = "Scheduled date must be in the future or present")
     private LocalDate scheduledDate;
 
-    public MaintenenceRequest() {
+    public MaintenanceRequest() {
     }
 
-    public MaintenenceRequest(Long garageId, Long carId, String serviceType, LocalDate scheduledDate) {
+    public MaintenanceRequest(Long garageId, Long carId, String serviceType, LocalDate scheduledDate) {
         this.garageId = garageId;
         this.carId = carId;
         this.serviceType = serviceType;

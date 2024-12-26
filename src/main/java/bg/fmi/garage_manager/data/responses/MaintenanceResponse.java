@@ -2,7 +2,7 @@ package bg.fmi.garage_manager.data.responses;
 
 import java.time.LocalDate;
 
-public class MaintenenceResponse {
+public class MaintenanceResponse {
 
     private Long id;
     private Long carId;
@@ -12,10 +12,10 @@ public class MaintenenceResponse {
     private Long garageId;
     private String garageName;
 
-    public MaintenenceResponse() {
+    public MaintenanceResponse() {
     }
 
-    public MaintenenceResponse(Long id, Long carId, String carName, String serviceType, LocalDate scheduledDate, Long garageId, String garageName) {
+    public MaintenanceResponse(Long id, Long carId, String carName, String serviceType, LocalDate scheduledDate, Long garageId, String garageName) {
         this.id = id;
         this.carId = carId;
         this.carName = carName;

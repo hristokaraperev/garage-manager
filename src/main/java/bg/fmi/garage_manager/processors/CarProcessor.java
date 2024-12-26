@@ -83,6 +83,10 @@ public class CarProcessor {
         );
     }
 
+    protected CarEntity getCarEntityById(Long id) {
+        return carRepository.findByIdAndIsActiveTrue(id).orElse(null);
+    }
+
     public CarResponse getCarById(Long id) {
         CarEntity car = carRepository.findByIdAndIsActiveTrue(id).orElse(null);
         if (car == null) {
