@@ -15,9 +15,9 @@ public interface CarRepository extends JpaRepository<CarEntity, Long> {
 
     Optional<CarEntity> findByIdAndIsActiveTrue(Long id);
 
-    @Query("SELECT c FROM CarEntity c WHERE "
+    @Query("SELECT c FROM CarEntity c JOIN c.garages g WHERE "
          + "(:make IS NULL OR c.make LIKE CONCAT(:make, '%')) AND "
-         + "(:garageId IS NULL OR :garageId MEMBER OF c.garages) AND "
+         + "(:garageId IS NULL OR g.id = :garageId) AND "
          + "(:fromYear IS NULL OR c.productionYear >= :fromYear) AND "
          + "(:toYear IS NULL OR c.productionYear <= :toYear) AND "
          + "c.isActive = true")
