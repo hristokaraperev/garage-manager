@@ -1,5 +1,6 @@
 package bg.fmi.garage_manager.processors;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import bg.fmi.garage_manager.data.dao.GarageRepository;
 import bg.fmi.garage_manager.data.model.GarageEntity;
 import bg.fmi.garage_manager.data.requests.GarageRequest;
+import bg.fmi.garage_manager.data.responses.GarageDailyAvailabilityResponse;
 import bg.fmi.garage_manager.data.responses.GarageResponse;
 import jakarta.transaction.Transactional;
 
