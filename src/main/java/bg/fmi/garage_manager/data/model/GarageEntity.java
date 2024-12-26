@@ -2,7 +2,6 @@ package bg.fmi.garage_manager.data.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;

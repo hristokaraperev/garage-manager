@@ -3,14 +3,21 @@ package bg.fmi.garage_manager.processors;
 import java.time.LocalDate;
 import java.util.List;
 
-import bg.fmi.garage_manager.data.responses.GarageDailyAvailabilityResponse;
+import org.springframework.stereotype.Service;
 
+import bg.fmi.garage_manager.data.responses.GarageDailyAvailabilityResponse;
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
 public class ReportProcessor {
     
     private final GarageProcessor garageProcessor;
+    private final CarProcessor carProcessor;
 
-    public ReportProcessor(GarageProcessor garageProcessor) {
+    public ReportProcessor(GarageProcessor garageProcessor, CarProcessor carProcessor) {
         this.garageProcessor = garageProcessor;
+        this.carProcessor = carProcessor;
     }
 
     public List<GarageDailyAvailabilityResponse> getDailyAvailabilityReport(Long garageId, LocalDate startDate, LocalDate endDate) {
