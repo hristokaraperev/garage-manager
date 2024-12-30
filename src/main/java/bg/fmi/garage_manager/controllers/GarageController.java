@@ -31,9 +31,9 @@ public class GarageController {
     }
 
     @PostMapping
-    public ResponseEntity<GarageResponse> createGarage(@Valid @RequestBody GarageRequest item) {
+    public ResponseEntity<GarageResponse> createGarage(@Valid @RequestBody GarageRequest request) {
         try {
-            GarageResponse savedItem = garageProcessor.createGarage(item);
+            GarageResponse savedItem = garageProcessor.createGarage(request);
             return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -69,9 +69,9 @@ public class GarageController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GarageResponse> updateGarage(@PathVariable Long id, @Valid @RequestBody GarageRequest item) {
+    public ResponseEntity<GarageResponse> updateGarage(@PathVariable Long id, @Valid @RequestBody GarageRequest request) {
         try {
-        GarageResponse updatedItem = garageProcessor.updateGarage(id, item);
+        GarageResponse updatedItem = garageProcessor.updateGarage(id, request);
         if (updatedItem == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

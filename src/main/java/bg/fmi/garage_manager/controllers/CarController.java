@@ -40,9 +40,9 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<CarResponse> createCar(@Valid @RequestBody CarRequest item) {
+    public ResponseEntity<CarResponse> createCar(@Valid @RequestBody CarRequest request) {
         try {
-            CarResponse savedItem = carProcessor.createCar(item);
+            CarResponse savedItem = carProcessor.createCar(request);
             return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,9 +63,9 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarResponse> updateCar(@PathVariable Long id, @Valid @RequestBody CarRequest item) {
+    public ResponseEntity<CarResponse> updateCar(@PathVariable Long id, @Valid @RequestBody CarRequest request) {
         try {
-            CarResponse updatedItem = carProcessor.updateCar(id, item);
+            CarResponse updatedItem = carProcessor.updateCar(id, request);
             if (updatedItem == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

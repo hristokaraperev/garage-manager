@@ -61,9 +61,9 @@ public class MaintenanceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MaintenanceResponse> updateMaintenance(@PathVariable Long id, @RequestBody MaintenanceRequest entity) {
+    public ResponseEntity<MaintenanceResponse> updateMaintenance(@PathVariable Long id, @Valid @RequestBody MaintenanceRequest request) {
         try {
-            MaintenanceResponse updatedMaintenance = maintenanceProcessor.updateMaintenance(id, entity);
+            MaintenanceResponse updatedMaintenance = maintenanceProcessor.updateMaintenance(id, request);
             if (updatedMaintenance == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
