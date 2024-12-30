@@ -1,5 +1,6 @@
 package bg.fmi.garage_manager.processors;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,6 +50,9 @@ public class CarProcessor {
 
         newCar.setMake(request.getMake());
         newCar.setModel(request.getModel());
+        if (request.getProductionYear() > Year.now().getValue()) {
+            throw new IllegalArgumentException("Production year cannot be in the future.");
+        }
         newCar.setProductionYear(request.getProductionYear());
         newCar.setLicensePlate(request.getLicensePlate());
         newCar.setIsActive(true);
