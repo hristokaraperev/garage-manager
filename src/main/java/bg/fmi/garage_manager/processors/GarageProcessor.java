@@ -125,4 +125,12 @@ public class GarageProcessor {
             deletedGarage.getCapacity()
         );
     }
+
+    protected int getGarageCapacity(Long garageId) {
+        GarageEntity garage = garageRepository.findByIdAndIsActiveTrue(garageId).orElse(null);
+        if (garage == null) {
+            return 0;
+        }
+        return garage.getCapacity();
+    }
 }

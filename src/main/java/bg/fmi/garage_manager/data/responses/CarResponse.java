@@ -11,9 +11,6 @@ public class CarResponse {
     private String licensePlate;
     private List<GarageResponse> garages;
 
-    public CarResponse() {
-    }
-
     public CarResponse(Long id, String make, String model, Integer productionYear, String licensePlate, List<GarageResponse> garages) {
         this.id = id;
         this.make = make;

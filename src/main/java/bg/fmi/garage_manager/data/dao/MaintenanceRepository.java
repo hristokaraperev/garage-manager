@@ -26,4 +26,22 @@ public interface MaintenanceRepository extends JpaRepository<MaintenanceEntity, 
         @Param("garageId") Long garageId,
         @Param("startDate") LocalDate startDate,
         @Param("endDate") LocalDate endDate);
+    @Query("SELECT m FROM MaintenanceEntity m WHERE "
+        + "m.isActive = true AND "
+        + "m.garage.id = :garageId AND "
+        + "m.scheduledDate BETWEEN :startDate AND :endDate")
+    List<MaintenanceEntity> findAllByGarageIdAndScheduledDateBetween(
+        @Param("garageId") Long garageId,
+        @Param("startDate") LocalDate startDate,
+        @Param("endDate") LocalDate endDate);
+    @Query("SELECT m FROM MaintenanceEntity m WHERE "
+        + "m.isActive = true AND "
+        + "m.garage.id = :garageId AND "
+        + "m.scheduledDate = :date")
+    List<MaintenanceEntity> findAllByGarageIdAndScheduledDate(Long garageId, LocalDate date);
+    @Query("SELECT m FROM MaintenanceEntity m WHERE "
+        + "m.isActive = true AND "
+        + "m.car.id = :carId AND "
+        + "m.scheduledDate = :date")
+    List<MaintenanceEntity> findAllByCarIdAndScheduledDate(Long carId, LocalDate date);
 }

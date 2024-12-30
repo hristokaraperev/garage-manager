@@ -38,6 +38,16 @@ public class MaintenanceProcessor {
             return null;
         }
 
+        List<MaintenanceEntity> carMaintenances = maintenanceRepository.findAllByCarIdAndScheduledDate(request.getCarId(), request.getScheduledDate());
+        if (!carMaintenances.isEmpty()) {
+            return null;
+        }
+
+        List<MaintenanceEntity> existingMaintenances = maintenanceRepository.findAllByGarageIdAndScheduledDate(request.getGarageId(), request.getScheduledDate());
+        if (existingMaintenances.size() >= atGarage.getCapacity()) {
+            return null;
+        }
+
         newMaintenance.setCar(toCar);
         newMaintenance.setGarage(atGarage);
         newMaintenance.setServiceType(request.getServiceType());
@@ -84,6 +94,11 @@ public class MaintenanceProcessor {
         GarageEntity atGarage = garageProcessor.getGarageEntityById(request.getGarageId());
 
         if (toCar == null || atGarage == null) {
+            return null;
+        }
+
+        List<MaintenanceEntity> existingMaintenances = maintenanceRepository.findAllByGarageIdAndScheduledDate(request.getGarageId(), request.getScheduledDate());
+        if (existingMaintenances.size() >= atGarage.getCapacity()) {
             return null;
         }
 
@@ -139,5 +154,9 @@ public class MaintenanceProcessor {
             maintenance.getGarage().getName()
             ))
             .collect(Collectors.toList());
+    }
+
+    protected List<MaintenanceEntity> getMaintenanceEntitiesByGarageIdAndScheduledDateBetween(Long garageId, LocalDate startDate, LocalDate endDate) {
+        return maintenanceRepository.findAllByGarageIdAndScheduledDateBetween(garageId, startDate, endDate);
     }
 }

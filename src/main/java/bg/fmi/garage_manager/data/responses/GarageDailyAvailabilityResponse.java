@@ -8,9 +8,6 @@ public class GarageDailyAvailabilityResponse {
     private Integer requests;
     private Integer availableCapacity;
 
-    public GarageDailyAvailabilityResponse() {
-    }
-
     public GarageDailyAvailabilityResponse(LocalDate date, Integer requests, Integer availableCapacity) {
         this.date = date;
         this.requests = requests;

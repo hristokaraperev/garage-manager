@@ -7,9 +7,6 @@ public class MaintenanceMonthlyRequestsResponse {
     private YearMonth yearMonth;
     private Integer requests;
 
-    public MaintenanceMonthlyRequestsResponse() {
-    }
-
     public MaintenanceMonthlyRequestsResponse(YearMonth yearMonth, Integer requests) {
         this.yearMonth = yearMonth;
         this.requests = requests;

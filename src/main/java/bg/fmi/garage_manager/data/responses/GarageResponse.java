@@ -8,9 +8,6 @@ public class GarageResponse {
     private String city;
     private Integer capacity;
 
-    public GarageResponse() {
-    }
-
     public GarageResponse(Long id, String name, String location, String city, Integer capacity) {
         this.id = id;
         this.name = name;
