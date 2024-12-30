@@ -10,7 +10,7 @@
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/your-username/garage-manager.git
+    git clone https://github.com/hristokaraperev/garage-manager.git
     ```
 
 2. **Open the Project in VS Code**
