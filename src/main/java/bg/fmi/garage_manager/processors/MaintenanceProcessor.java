@@ -1,5 +1,9 @@
 package bg.fmi.garage_manager.processors;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import bg.fmi.garage_manager.data.dao.MaintenanceRepository;
@@ -53,4 +57,87 @@ public class MaintenanceProcessor {
             );
     }
 
+    public MaintenanceResponse getMaintenance(Long id) {
+        MaintenanceEntity maintenance = maintenanceRepository.findByIdAndIsActiveTrue(id).orElse(null);
+        if (maintenance == null) {
+            return null;
+        }
+
+        return new MaintenanceResponse(
+            maintenance.getId(), 
+            maintenance.getCar().getId(), 
+            maintenance.getCar().getLicensePlate(), 
+            maintenance.getServiceType(), 
+            maintenance.getScheduledDate(), 
+            maintenance.getGarage().getId(), 
+            maintenance.getGarage().getName()
+            );
+    }
+
+    public MaintenanceResponse updateMaintenance(Long id, MaintenanceRequest request) {
+        MaintenanceEntity existingMaintenance = maintenanceRepository.findByIdAndIsActiveTrue(id).orElse(null);
+        if (existingMaintenance == null) {
+            return null;
+        }
+
+        CarEntity toCar = carProcessor.getCarEntityById(request.getCarId());
+        GarageEntity atGarage = garageProcessor.getGarageEntityById(request.getGarageId());
+
+        if (toCar == null || atGarage == null) {
+            return null;
+        }
+
+        existingMaintenance.setCar(toCar);
+        existingMaintenance.setGarage(atGarage);
+        existingMaintenance.setServiceType(request.getServiceType());
+        existingMaintenance.setScheduledDate(request.getScheduledDate());
+
+        MaintenanceEntity updatedMaintenance = maintenanceRepository.save(existingMaintenance);
+
+        return new MaintenanceResponse(
+            updatedMaintenance.getId(), 
+            toCar.getId(), 
+            toCar.getLicensePlate(), 
+            updatedMaintenance.getServiceType(), 
+            updatedMaintenance.getScheduledDate(), 
+            atGarage.getId(), 
+            atGarage.getName()
+        );
+    }
+
+    public MaintenanceResponse deleteMaintenance(Long id) {
+        MaintenanceEntity existingMaintenance = maintenanceRepository.findByIdAndIsActiveTrue(id).orElse(null);
+        if (existingMaintenance == null) {
+            return null;
+        }
+
+        existingMaintenance.setIsActive(false);
+        
+        MaintenanceEntity deletedMaintenance = maintenanceRepository.save(existingMaintenance);
+
+        return new MaintenanceResponse(
+            deletedMaintenance.getId(), 
+            deletedMaintenance.getCar().getId(), 
+            deletedMaintenance.getCar().getLicensePlate(), 
+            deletedMaintenance.getServiceType(), 
+            deletedMaintenance.getScheduledDate(), 
+            deletedMaintenance.getGarage().getId(), 
+            deletedMaintenance.getGarage().getName()
+        );
+    }
+
+    public List<MaintenanceResponse> searchMaintenance(Long carId, Long garageId, LocalDate startDate, LocalDate endDate) {
+        List<MaintenanceEntity> maintenanceList = maintenanceRepository.findByCarIdAndGarageIdAndScheduledDateBetween(carId, garageId, startDate, endDate);
+        return maintenanceList.stream()
+            .map(maintenance -> new MaintenanceResponse(
+            maintenance.getId(),
+            maintenance.getCar().getId(),
+            maintenance.getCar().getLicensePlate(),
+            maintenance.getServiceType(),
+            maintenance.getScheduledDate(),
+            maintenance.getGarage().getId(),
+            maintenance.getGarage().getName()
+            ))
+            .collect(Collectors.toList());
+    }
 }
