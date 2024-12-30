@@ -2,6 +2,7 @@
 
 ## Prerequisites
 
+- Git
 - Java Development Kit (JDK) 21 or higher
 - Visual Studio Code with Java and Spring Boot extensions installed
 
@@ -10,7 +11,6 @@
 1. **Clone the Repository**
     ```sh
     git clone https://github.com/your-username/garage-manager.git
-    cd garage-manager
     ```
 
 2. **Open the Project in VS Code**
@@ -25,3 +25,4 @@
 ## Additional Information
 
 - Ensure your `JAVA_HOME` environment variable is set to the JDK installation path.
+- Ensure you've added the \bin folder path (JAVA_HOME\bin) at the end of the `Path` environment variable
