@@ -19,12 +19,10 @@ import java.util.stream.Collectors;
 public class ReportProcessor {
     
     private final GarageProcessor garageProcessor;
-    private final CarProcessor carProcessor;
     private final MaintenanceProcessor maintenanceProcessor;
 
-    public ReportProcessor(GarageProcessor garageProcessor, CarProcessor carProcessor, MaintenanceProcessor maintenanceProcessor) {
+    public ReportProcessor(GarageProcessor garageProcessor, MaintenanceProcessor maintenanceProcessor) {
         this.garageProcessor = garageProcessor;
-        this.carProcessor = carProcessor;
         this.maintenanceProcessor = maintenanceProcessor;
     }
 
